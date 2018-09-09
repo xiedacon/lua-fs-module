@@ -12,4 +12,4 @@
 
 [MIT License](https://github.com/xiedacon/lua-fs-module/blob/master/LICENSE)
 
-Copyright (c) {{year}} xiedacon
+Copyright (c) 2018 xiedacon
