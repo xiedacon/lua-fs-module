@@ -34,7 +34,7 @@ function fs.read (path, n)
 end
 
 function fs.readdir (path, n)
-    local content = popen("ls -a '" .. path .. "'", n)
+    local content = popen("ls -at '" .. path .. "'", n)
 
     if not content or content == "" then
         return nil, "No such file or directory"
