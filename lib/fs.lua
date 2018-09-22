@@ -98,16 +98,6 @@ end
 
 fs.write = fs.writeFile
 
-function fs.realpath (path, n)
-    if not path or path == "" then
-        return nil, "path is required"
-    end
-
-    local _path = popen("realpath '" .. path .. "'", n)
-
-    return string.sub(_path, 1, string.len(_path) - 1)
-end
-
 function fs.exists (path)
     local file, err = io.open(path)
 
@@ -135,43 +125,87 @@ function fs.copy (path1, path2)
 end
 
 function fs.move (path1, path2)
-    local content, err = fs.read(path1)
-
-    if not content then
-        return false, err
-    end
-
-    local ok, err = fs.write(path2, content)
+    local ok = os.execute("mv '" .. path1 .. "' '" .. path2 .. "'")
 
     if not ok then
-        return false, err
+        return false, "failed to move " .. path1 .. " to " .. path2
+    else
+        return true
     end
-
-    return true
 end
 
 function fs.mkdir (path)
+    local ok = os.execute("mkdir -p '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to mkdir " .. path
+    else
+        return true
+    end
 end
 
 function fs.rm (path)
+    local ok = os.execute("rm '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to rm " .. path
+    else
+        return true
+    end
 end
 
+fs.remove = fs.rm
+
 function fs.rmdir (path)
+    local ok = os.execute("rmdir '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to rmdir " .. path
+    else
+        return true
+    end
 end
 
 function fs.unlink (path)
+    local ok = os.execute("unlink '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to unlink " .. path
+    else
+        return true
+    end
 end
 
 function fs.rmAll (path)
+    local ok = os.execute("rm -rf '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to rmAll " .. path
+    else
+        return true
+    end
 end
 
-function fs.chown (path)
+fs.removeAll = fs.rmAll
+
+function fs.chown (path, own)
+    local ok = os.execute("chown '" .. own .. "' '" .. path .. "'")
+
+    if not ok then
+        return false, "failed to chown " .. own .. " " .. path
+    else
+        return true
+    end
 end
 
-function fs.chmod (path)
-end
+function fs.chmod (path, mode)
+    local ok = os.execute("chmod '" .. tostring(mode) .. "' '" .. path .. "'")
 
-function fs.tmpfile (path)
+    if not ok then
+        return false, "failed to chmod " .. tostring(mode) .. " " .. path
+    else
+        return true
+    end
 end
 
 function fs.isDir (path)
