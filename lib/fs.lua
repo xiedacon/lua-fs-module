@@ -98,6 +98,24 @@ end
 
 fs.write = fs.writeFile
 
+fs.appendToFile = function (path, content)
+    local file, err = io.open(path, "a")
+
+    if not file then
+        return false, err
+    end
+
+    local ok, err = file:write(content)
+
+    if not ok then
+        file:close()
+        return false, err
+    end
+
+    file:close()
+    return true, err
+end
+
 function fs.exists (path)
     local file, err = io.open(path)
 

@@ -9,6 +9,7 @@
 * fs.readdir
 * fs.write
 * fs.writeFile
+* fs.appendToFile
 * fs.exists
 * fs.copy
 * fs.move
@@ -40,6 +41,7 @@ local files, err = fs.readdir(dir, n)
 
 local ok, err = fs.write(file, content)
 local ok, err = fs.writeFile(file, content)
+local ok, err = fs.appendToFile(file, content)
 local exists = fs.exists(file)
 local ok, err = fs.copy(file1, file2)
 local ok, err = fs.move(fileOrDir1, fileOrDir2)
