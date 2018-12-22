@@ -1,6 +1,6 @@
 -- Copyright (c) 2018, xiedacon.
 
-local fs = {}
+local fs = { _VERSION = "0.1" }
 
 local function popen (command, n)
     if not n then n = 3 end
