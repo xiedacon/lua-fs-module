@@ -31,8 +31,8 @@
 local fs = require "fs"
 
 local content, err = fs.read(fileOrDir)
--- 读取目标为文件时，content 为文件内容
--- 读取目标为目录时，content 为 { "a.txt", "b.txt" }
+-- 读取目标为文件时，content 为文件内容
+-- 读取目标为目录时，content 为 { "a.txt", "b.txt" }
 
 local content, err = fs.readFile(file)
 local files, err = fs.readdir(dir, n)
